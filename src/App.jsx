@@ -1,14 +1,12 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "antd/dist/reset.css";
+import AppLayout from "./components/Layout/Layout";
 
 function App() {
   return (
     <div className="App">
-      <p className="text-success text-center">This is app</p>
+      <AppLayout />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
