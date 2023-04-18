@@ -6,7 +6,7 @@ import './App.css'
 function App() {
   return (
     <div className="App">
-      <p>This is app</p>
+      <p className="text-success text-center">This is app</p>
     </div>
   )
 }
