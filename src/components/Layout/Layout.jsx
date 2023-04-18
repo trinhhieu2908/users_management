@@ -7,26 +7,40 @@ import {
 } from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
 import React, { useState } from "react";
-const { Header, Sider, Content } = Layout;
+import { Outlet, useNavigate } from "react-router-dom";
+const { Header, Sider, Content, Footer } = Layout;
+import logo from "../../assets/logo-red.png";
 
 const AppLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
+  const navigate = useNavigate();
+  const onNavigate = (route) => {
+    console.log(route.key);
+    navigate(route.key);
+  };
   return (
-    <Layout style={{height:"100vh"}}>
+    <Layout style={{ height: "100vh" }}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="logo" />
+        <div className="d-flex justify-content-center align-items-center">
+          <img
+            style={{
+              height: 'auto',
+              width: 120,
+            }}
+            src={logo}
+            alt=""
+          />
+        </div>
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={["1"]}
+          onSelect={onNavigate}
+          defaultSelectedKeys={["user-page"]}
           items={[
             {
-              key: "1",
+              key: "user-page",
               icon: <UserOutlined />,
-              label: "nav 1",
+              label: "Users",
             },
             {
               key: "2",
@@ -45,7 +59,8 @@ const AppLayout = () => {
         <Header
           style={{
             padding: 0,
-            background: colorBgContainer,
+            height: 60,
+            backgroundColor: "#ffffff",
           }}
         >
           {React.createElement(
@@ -58,14 +73,21 @@ const AppLayout = () => {
         </Header>
         <Content
           style={{
-            margin: "24px 16px",
             padding: 24,
-            minHeight: 280,
-            background: colorBgContainer,
           }}
         >
-          Content
+          <Outlet />
         </Content>
+        <Footer
+          className="d-flex justify-content-center align-items-center"
+          style={{
+            padding: 0,
+            minHeight: 40,
+            backgroundColor: "#ffffff",
+          }}
+        >
+          footer
+        </Footer>
       </Layout>
     </Layout>
   );
