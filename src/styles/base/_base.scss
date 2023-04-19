@@ -1,0 +1,52 @@
+* {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 0;
+  font-family: "Poppins";
+}
+a {
+  display: block;
+  color: rgb(248, 58, 58);
+  &:hover {
+    color: rgb(237, 131, 131);
+  }
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span {  
+  margin-bottom: 0;
+}
+p{
+  margin-bottom: 0;
+}
+button {
+  cursor: pointer;
+}
+body {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  background-color: #292929 !important;
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $secondary;
+    outline: 1px solid $secondary;
+    border-radius: 20px;
+  }
+}
+
+input {
+  outline: none !important;
+}
+h6 {
+  font-size: 1.05rem;
+}
+img{
+  object-fit: cover;
+}

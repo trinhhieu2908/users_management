@@ -2,7 +2,7 @@ import axios from "axios";
 
 const axiosConfig = axios.create({
   baseURL:
-    "https://5aicueuw8h.execute-api.ap-southeast-1.amazonaws.com/Prod/api/",
+    "https://interview-incom-default-rtdb.firebaseio.com/",
   headers: {
     "content-type": "application/json",
   },

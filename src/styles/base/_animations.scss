@@ -1,0 +1,117 @@
+@keyframes fly-down-top {
+  0% {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+  80% {
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+@keyframes move-in-top {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+@keyframes move-in-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  80% {
+    transform: translateX(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+@keyframes move-in-right {
+  0% {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  80% {
+    transform: translateX(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+@keyframes move-in-bottom {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-bump {
+  0% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes wink-light {
+  0% {
+    text-shadow: 1px 1px 1px $secondary, 1px 2px 1px $secondary, 1px 3px 1px $secondary, 1px 4px 1px $secondary,
+      1px 5px 1px $secondary, 1px 6px 1px $secondary, 1px 7px 1px $secondary, 1px 8px 1px $secondary,
+      1px 9px 1px $secondary, 1px 10px 1px $secondary;
+  }
+  50% {
+    text-shadow: 1px 1px 1px $secondary, 1px 2px 1px $secondary, 1px 3px 1px $secondary, 1px 4px 1px $secondary,
+      1px 5px 1px $secondary, 1px 6px 1px $secondary, 1px 7px 1px $secondary, 1px 8px 1px $secondary,
+      1px 9px 1px $secondary, 1px 10px 1px $secondary, 1px 18px 6px rgba($secondary, 0.4),
+      1px 22px 10px rgba($secondary, 0.4), 1px 25px 35px rgba($secondary, 0.4), 1px 30px 60px rgba($secondary, 0.4);
+  }
+  100% {
+    text-shadow: 1px 1px 1px $secondary, 1px 2px 1px $secondary, 1px 3px 1px $secondary, 1px 4px 1px $secondary,
+      1px 5px 1px $secondary, 1px 6px 1px $secondary, 1px 7px 1px $secondary, 1px 8px 1px $secondary,
+      1px 9px 1px $secondary, 1px 10px 1px $secondary;
+  }
+}
+
+
+@keyframes scale-up {
+  0% {
+    opacity: 0;
+    transform: scale(0.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

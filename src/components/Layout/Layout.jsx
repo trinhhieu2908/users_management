@@ -1,15 +1,15 @@
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  UploadOutlined,
   UserOutlined,
-  VideoCameraOutlined,
+  GlobalOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu, theme } from "antd";
+import { Avatar, Layout, Menu } from "antd";
 import React, { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 const { Header, Sider, Content, Footer } = Layout;
-import logo from "../../assets/logo-red.png";
+import logo from "../../assets/images/logo.png";
+import { routes } from "../../utils/constants/routes";
 
 const AppLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -18,51 +18,40 @@ const AppLayout = () => {
     console.log(route.key);
     navigate(route.key);
   };
+
+  const logoStyle = collapsed ? "logo-icon-small" : "logo-icon-large";
   return (
     <Layout style={{ height: "100vh" }}>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="d-flex justify-content-center align-items-center">
-          <img
-            style={{
-              height: 'auto',
-              width: 120,
-            }}
-            src={logo}
-            alt=""
-          />
+      <Sider
+        trigger={null}
+        collapsible
+        collapsed={collapsed}
+        className="sidebar"
+      >
+        <div className="d-flex justify-content-center align-items-center logo">
+          <img className={logoStyle} src={logo} alt="" />
         </div>
         <Menu
-          theme="dark"
+          theme="light"
           mode="inline"
           onSelect={onNavigate}
-          defaultSelectedKeys={["user-page"]}
+          defaultSelectedKeys={[routes.userPath]}
           items={[
             {
-              key: "user-page",
+              key: routes.userPath,
               icon: <UserOutlined />,
               label: "Users",
             },
             {
-              key: "2",
-              icon: <VideoCameraOutlined />,
-              label: "nav 2",
-            },
-            {
-              key: "3",
-              icon: <UploadOutlined />,
-              label: "nav 3",
+              key: routes.provincePath,
+              icon: <GlobalOutlined />,
+              label: "provinces",
             },
           ]}
         />
       </Sider>
       <Layout className="site-layout">
-        <Header
-          style={{
-            padding: 0,
-            height: 60,
-            backgroundColor: "#ffffff",
-          }}
-        >
+        <Header className="header d-flex justify-content-between align-items-center">
           {React.createElement(
             collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
             {
@@ -70,6 +59,7 @@ const AppLayout = () => {
               onClick: () => setCollapsed(!collapsed),
             }
           )}
+          <Avatar size={28} icon={<UserOutlined />} />
         </Header>
         <Content
           style={{
@@ -78,15 +68,8 @@ const AppLayout = () => {
         >
           <Outlet />
         </Content>
-        <Footer
-          className="d-flex justify-content-center align-items-center"
-          style={{
-            padding: 0,
-            minHeight: 40,
-            backgroundColor: "#ffffff",
-          }}
-        >
-          footer
+        <Footer className="d-flex justify-content-center align-items-center footer">
+          @Copyright Tran Trinh Hieu
         </Footer>
       </Layout>
     </Layout>

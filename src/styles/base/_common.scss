@@ -1,0 +1,64 @@
+.sidebar {
+  border-right: 1px solid rgba(234, 234, 234, 0.88);
+
+  .ant-layout-sider-children {
+    background-color: $primary;
+  }
+
+  .ant-menu-item-selected {
+    color: $secondary;
+    background-color: rgba(231, 195, 195, 0.88)
+  }
+}
+
+.header.ant-layout-header {
+  height: 64px;
+  padding-inline: 20px;
+  color: rgba(0, 0, 0, 0.88);
+  line-height: 64px;
+  background: $primary;
+}
+
+.ant-table-pagination.ant-pagination{
+  justify-content: center;
+}
+
+.ant-form-vertical .ant-form-item-row {
+  flex-direction: row;
+}
+
+.form{
+  .ant-input, 
+  .ant-input-status-error:not(.ant-input-disabled):not(.ant-input-borderless).ant-input, .ant-input-status-error:not(.ant-input-disabled):not(.ant-input-borderless).ant-input:hover,
+  .ant-select-status-error.ant-select:not(.ant-select-disabled):not(.ant-select-customize-input) .ant-select-selector,
+  .ant-select:not(.ant-select-customize-input) .ant-select-selector,
+  .ant-input-number-status-error:not(.ant-input-number-disabled):not(.ant-input-number-borderless).ant-input-number, .ant-input-number-status-error:not(.ant-input-number-disabled):not(.ant-input-number-borderless).ant-input-number:hover,
+  .ant-input-number,
+  .ant-input-number-affix-wrapper-status-error:not(.ant-input-number-affix-wrapper-disabled):not(.ant-input-number-affix-wrapper-borderless).ant-input-number-affix-wrapper, .ant-input-number-affix-wrapper-status-error:not(.ant-input-number-affix-wrapper-disabled):not(.ant-input-number-affix-wrapper-borderless).ant-input-number-affix-wrapper:hover,
+  .ant-input-number-affix-wrapper
+  {
+      width: 100%;
+  }
+  .ant-picker-status-error.ant-picker-focused, .ant-picker-status-error.ant-picker:focus,
+  .ant-picker-large{
+      width: 50%;
+  }
+  .ant-select-multiple .ant-select-selection-placeholder,
+  .ant-select-selection-placeholder{
+      color: silver;
+  }
+  .ant-divider-horizontal.ant-divider-with-text {
+      margin-top: 0;
+  }
+  &__label{
+      color: black;
+      margin-bottom: 0;
+  }
+  &__title{
+      color: black;
+      margin: 10px 0;
+  }
+  &__button{
+      width: 50%;
+  }
+}
