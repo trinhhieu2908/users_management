@@ -1,34 +1,99 @@
 import React, { useEffect } from "react";
 import UserTable from "../../components/Users/UserTable/UserTable";
-import UserModal from "../../components/Users/AddUserModal/UserModal";
-import { Button } from "antd";
+import UserModal from "../../components/Users/UserModal/UserModal";
+import { Button, DatePicker, Skeleton, Space } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actions as modalAction } from "../../redux/modal/slice";
 import { actions as userAction } from "../../redux/users/slice";
-import axios from "axios";
-import { getUser } from "../../api/getUsers";
+import { usersSelectors } from "../../redux/users/selector";
+import ConfirmDeleteUserModal from "../../components/Users/ConfirmDeleteUserModal/ConfirmDeleteUserModal";
+import { useQuery } from "react-query";
+import axiosConfig from "../../utils/axios";
+import { DELETE_SELECTION } from "../../utils/constants/constant";
+
+const { RangePicker } = DatePicker;
 
 const UserPage = () => {
   const dispatch = useDispatch();
-
+  const usersSelectedData = useSelector(usersSelectors.getUsersSelected);
+  const {
+    data: usersList,
+    isLoading: isGettingUsers,
+    refetch,
+  } = useQuery(
+    ["users"],
+    async () => {
+      const response = await axiosConfig.get("users.json");
+      const data = await response.data;
+      const users = [];
+      for (const user in data) {
+        const newUser = data[user];
+        newUser.id = user;
+        newUser.key = user;
+        users.push(newUser);
+      }
+      return users;
+    },
+    {
+      onError: () => {
+        console.log("error get users");
+      },
+    }
+  );
   useEffect(() => {
-    getUser().then((users) => {
-      dispatch(userAction.setUsers(users));
-    });
-  }, []);
+    if (usersList) {
+      dispatch(userAction.setUsers(usersList));
+    }
+  }, [usersList]);
+
+  const onFilterDateCreated = (_, value) => {
+    const startDate = value[0];
+    const endDate = value[1];
+    if (startDate === "" || endDate === "") {
+      refetch();
+      dispatch(userAction.setUsers(usersList));
+    } else {
+      dispatch(
+        userAction.filterUsersByDate({ startDate: startDate, endDate: endDate })
+      );
+    }
+  };
+
+  if (isGettingUsers) {
+    return <Skeleton active />;
+  }
+
   return (
     <>
       <UserModal />
-      <div className="d-flex justify-content-end mb-1">
-        <Button
-          onClick={() => {
-            dispatch(modalAction.openUserModal());
-          }}
-          icon={<PlusOutlined />}
-        >
-          Add User
-        </Button>
+      <ConfirmDeleteUserModal />
+      <div className="d-flex justify-content-between mb-1">
+        <Space direction="horizontal">
+          <p>Date Created: </p>
+          <RangePicker onChange={onFilterDateCreated} />
+        </Space>
+        <div>
+          {usersSelectedData.length > 0 && (
+            <Button
+              danger
+              className="mr-1 btn-delete-selection"
+              onClick={() => {
+                dispatch(modalAction.openDeleteModal(DELETE_SELECTION));
+              }}
+            >
+              Delete Selected
+            </Button>
+          )}
+          <Button
+            onClick={() => {
+              dispatch(modalAction.openUserModal());
+            }}
+            icon={<PlusOutlined />}
+          >
+            Add User
+          </Button>
+        </div>
       </div>
       <UserTable />
     </>

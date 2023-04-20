@@ -1,11 +1,49 @@
-import { Space, Table } from "antd";
-import React, { useState } from "react";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { useSelector } from "react-redux";
+import { Space, Table } from "antd";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { actions as modalActions } from "../../../redux/modal/slice";
 import { usersSelectors } from "../../../redux/users/selector";
+import { actions as userActions } from "../../../redux/users/slice";
+import { getFullDateAndTime } from "../../../utils/getDateFormat";
+import PasswordCol from "./PasswordCol";
+import { hideHalfOfText } from "../../../utils/hideContent";
 
 const UserTable = () => {
+  const dispatch = useDispatch();
+  const usersData = useSelector(usersSelectors.getUsers);
+  const selectedUsersData = useSelector(usersSelectors.getUsersSelected);
+  const onSelectChange = (newSelectedRowKeys) => {
+    dispatch(userActions.setSelectedUsers(newSelectedRowKeys));
+  };
+
+  const rowSelection = {
+    selectedUsersData,
+    onChange: onSelectChange,
+    selections: [Table.SELECTION_ALL, Table.SELECTION_NONE],
+  };
+
   const columns = [
+    {
+      title: "Stt",
+      dataIndex: "id",
+      key: "id",
+      width: 60,
+      render: (_, _r, index) => <p>{index + 1}</p>,
+    },
+    {
+      title: "Username",
+      dataIndex: "username",
+      key: "username",
+      render: (text) => <p>{hideHalfOfText(text)}</p>,
+    },
+    {
+      title: "Password",
+      dataIndex: "password",
+      key: "password",
+      width: 300,
+      render: (password) => <PasswordCol password={password} />,
+    },
     {
       title: "Name",
       dataIndex: "fullName",
@@ -13,34 +51,10 @@ const UserTable = () => {
       render: (text) => <p>{text}</p>,
     },
     {
-      title: "Birthday",
-      dataIndex: "birthday",
-      key: "birthday",
-    },
-    {
-      title: "Phone Number",
-      dataIndex: "phoneNumber",
-      key: "phoneNumber",
-    },
-    {
-      title: "Email",
-      dataIndex: "email",
-      key: "email",
-    },
-    {
-      title: "Username",
-      dataIndex: "username",
-      key: "username",
-    },
-    {
-      title: "Password",
-      dataIndex: "password",
-      key: "password",
-    },
-    {
-      title: "Role",
-      dataIndex: "role",
-      key: "role",
+      title: "Date Created",
+      dataIndex: "dateCreated",
+      key: "dateCreated",
+      render: (dateCreated) => <p>{getFullDateAndTime(dateCreated)}</p>,
     },
     {
       title: "Action",
@@ -54,64 +68,26 @@ const UserTable = () => {
             <EditOutlined />
           </a>
           <a>
-            <DeleteOutlined />
+            <DeleteOutlined
+              onClick={(event) => {
+                event.stopPropagation();
+                console.log("delete");
+                dispatch(modalActions.openDeleteModal(record));
+              }}
+            />
           </a>
         </Space>
       ),
     },
   ];
 
-  const usersData = useSelector(usersSelectors.getUsers);
-
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const onSelectChange = (newSelectedRowKeys) => {
-    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
-    setSelectedRowKeys(newSelectedRowKeys);
-  };
-  const rowSelection = {
-    selectedRowKeys,
-    onChange: onSelectChange,
-    selections: [
-      Table.SELECTION_ALL,
-      Table.SELECTION_INVERT,
-      Table.SELECTION_NONE,
-      {
-        key: "odd",
-        text: "Select Odd Row",
-        onSelect: (changeableRowKeys) => {
-          let newSelectedRowKeys = [];
-          newSelectedRowKeys = changeableRowKeys.filter((_, index) => {
-            if (index % 2 !== 0) {
-              return false;
-            }
-            return true;
-          });
-          setSelectedRowKeys(newSelectedRowKeys);
-        },
-      },
-      {
-        key: "even",
-        text: "Select Even Row",
-        onSelect: (changeableRowKeys) => {
-          let newSelectedRowKeys = [];
-          newSelectedRowKeys = changeableRowKeys.filter((_, index) => {
-            if (index % 2 !== 0) {
-              return true;
-            }
-            return false;
-          });
-          setSelectedRowKeys(newSelectedRowKeys);
-        },
-      },
-    ],
-  };
   return (
     <Table
       scroll={{ x: 1500 }}
       onRow={(record, rowIndex) => {
         return {
           onClick: (event) => {
-            console.log(record);
+            dispatch(modalActions.openUserModal(record));
           },
         };
       }}

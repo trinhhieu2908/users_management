@@ -64,6 +64,7 @@ const AppLayout = () => {
         <Content
           style={{
             padding: 24,
+            overflowY: "scroll"
           }}
         >
           <Outlet />

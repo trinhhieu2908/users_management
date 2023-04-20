@@ -7,5 +7,7 @@
 @import "./base/common";
 @import "./base/utilities.scss";
 
-//Component
-@import "../components/Layout/style.scss"
+
+@import "../components/Layout/style.scss";
+@import "../components/Users/UserModal/style.scss";
+@import "../components//Users/UserTable/style.scss";

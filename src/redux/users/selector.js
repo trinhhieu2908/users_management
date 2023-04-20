@@ -1,3 +1,5 @@
 const getUsers = (state) => state?.users?.users;
 
-export const usersSelectors = { getUsers };
+const getUsersSelected = (state) => state?.users?.selectedUsers;
+
+export const usersSelectors = { getUsers, getUsersSelected };
