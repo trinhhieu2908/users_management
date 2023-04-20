@@ -5,28 +5,35 @@ import {
   GlobalOutlined,
 } from "@ant-design/icons";
 import { Avatar, Layout, Menu } from "antd";
-import React, { useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import React, { useLayoutEffect, useState } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 const { Header, Sider, Content, Footer } = Layout;
 import logo from "../../assets/images/logo.png";
 import { routes } from "../../utils/constants/routes";
+import useDetectMatchingBreakpoint from "../../hooks/useDetectMatchingBreakpoint";
 
 const AppLayout = () => {
-  const [collapsed, setCollapsed] = useState(false);
+  const { isMatchingBreakpoint: isTablet } = useDetectMatchingBreakpoint(768);
+  const [collapsed, setCollapsed] = useState(isTablet);
+
   const navigate = useNavigate();
+  const location = useLocation();
+  const pathRoute = location.pathname;
+
   const onNavigate = (route) => {
     console.log(route.key);
     navigate(route.key);
   };
 
   const logoStyle = collapsed ? "logo-icon-small" : "logo-icon-large";
+  const siderStyle = isTablet && collapsed ? "sidebar sidebar-hide" : "sidebar";
   return (
     <Layout style={{ height: "100vh" }}>
       <Sider
         trigger={null}
         collapsible
         collapsed={collapsed}
-        className="sidebar"
+        className={siderStyle}
       >
         <div className="d-flex justify-content-center align-items-center logo">
           <img className={logoStyle} src={logo} alt="" />
@@ -35,7 +42,7 @@ const AppLayout = () => {
           theme="light"
           mode="inline"
           onSelect={onNavigate}
-          defaultSelectedKeys={[routes.userPath]}
+          selectedKeys={[pathRoute]}
           items={[
             {
               key: routes.userPath,
@@ -64,7 +71,7 @@ const AppLayout = () => {
         <Content
           style={{
             padding: 24,
-            overflowY: "scroll"
+            overflowY: "scroll",
           }}
         >
           <Outlet />

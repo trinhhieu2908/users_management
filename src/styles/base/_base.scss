@@ -2,7 +2,6 @@
   margin: 0;
   padding: 0;
   margin-bottom: 0;
-  font-family: "Poppins";
 }
 a {
   display: block;
@@ -25,20 +24,6 @@ p{
 }
 button {
   cursor: pointer;
-}
-body {
-  overflow-x: hidden;
-  overflow-y: scroll;
-  background-color: #292929 !important;
-  &::-webkit-scrollbar {
-    width: 5px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: $secondary;
-    outline: 1px solid $secondary;
-    border-radius: 20px;
-  }
 }
 
 input {

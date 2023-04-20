@@ -37,6 +37,20 @@
   }
 }
 
+@-prefix-keyframes move-out-left {
+  0% {
+    opacity: 0;
+    transform: translateX(0px);
+  }
+  80% {
+    transform: translateX(-90px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-100px);
+  }
+}
+
 @keyframes move-in-right {
   0% {
     opacity: 0;

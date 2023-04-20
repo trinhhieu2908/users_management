@@ -63,6 +63,7 @@ const ProvinceTable = (props) => {
       }}
       className="user-table"
       columns={columns}
+      rowKey="code"
       dataSource={props.provincesData}
     />
   );

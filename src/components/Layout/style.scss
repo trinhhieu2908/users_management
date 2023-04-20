@@ -1,16 +1,15 @@
 .logo {
-    height: 64px;
-    line-height: 64px;
-    background: $primary;
-    &-icon-large {
-        height: auto;
-        width: 80px;
-        transition: 0.3s;
-    }
-    &-icon-small {
-        height: auto;
-        width: 60px;
-        transition: 0.3s;
-    }
+  height: 64px;
+  line-height: 64px;
+  background: $primary;
+  &-icon-large {
+    height: auto;
+    width: 80px;
+    transition: 0.3s;
+  }
+  &-icon-small {
+    height: auto;
+    width: 60px;
+    transition: 0.3s;
+  }
 }
-
