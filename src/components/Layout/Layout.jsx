@@ -19,6 +19,10 @@ const AppLayout = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const pathRoute = location.pathname;
+  let defaultPath = routes.userPath;
+  if (pathRoute !== "/") {
+    defaultPath = pathRoute;
+  }
 
   const onNavigate = (route) => {
     console.log(route.key);
@@ -42,7 +46,7 @@ const AppLayout = () => {
           theme="light"
           mode="inline"
           onSelect={onNavigate}
-          selectedKeys={[pathRoute]}
+          selectedKeys={[defaultPath]}
           items={[
             {
               key: routes.userPath,
