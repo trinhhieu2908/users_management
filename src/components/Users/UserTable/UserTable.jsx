@@ -90,7 +90,6 @@ const UserTable = () => {
             <DeleteOutlined
               onClick={(event) => {
                 event.stopPropagation();
-                console.log("delete");
                 dispatch(modalActions.openDeleteModal(record));
               }}
             />

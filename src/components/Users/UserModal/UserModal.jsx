@@ -114,17 +114,20 @@ const UserModal = () => {
       email: data.email,
       username: data.username,
       password: data.password,
-      role: data.role,      
+      role: data.role,
     };
     if (userOnModal === undefined) {
       user.dateCreated = new Date();
       addUser(user);
     } else {
-      const data = {
-        user: user,
-        id: userOnModal.id,
-      };
-      updateUser(data);
+      getUserById(userOnModal.id).then((userOld) => {
+        user.dateCreated = userOld.dateCreated;
+        const data = {
+          user: user,
+          id: userOnModal.id,
+        };
+        updateUser(data);
+      });
     }
   };
 
@@ -258,7 +261,9 @@ const UserModal = () => {
                       );
                     } else if (!validateUsername(value)) {
                       return Promise.reject(
-                        new Error("Username must have between 4 and 30 characters")
+                        new Error(
+                          "Username must have between 4 and 30 characters"
+                        )
                       );
                     } else {
                       return Promise.resolve();
