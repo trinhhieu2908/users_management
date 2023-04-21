@@ -114,10 +114,10 @@ const UserModal = () => {
       email: data.email,
       username: data.username,
       password: data.password,
-      role: data.role,
-      dateCreated: new Date(),
+      role: data.role,      
     };
     if (userOnModal === undefined) {
+      user.dateCreated = new Date();
       addUser(user);
     } else {
       const data = {
