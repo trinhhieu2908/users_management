@@ -1,6 +1,6 @@
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Space, Table } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actions as modalActions } from "../../../redux/modal/slice";
 import { usersSelectors } from "../../../redux/users/selector";
@@ -8,11 +8,30 @@ import { actions as userActions } from "../../../redux/users/slice";
 import { getFullDateAndTime } from "../../../utils/getDateFormat";
 import PasswordCol from "./PasswordCol";
 import { hideHalfOfText } from "../../../utils/hideContent";
+import useDetectMatchingBreakpoint from "../../../hooks/useDetectMatchingBreakpoint";
 
 const UserTable = () => {
   const dispatch = useDispatch();
   const usersData = useSelector(usersSelectors.getUsers);
   const selectedUsersData = useSelector(usersSelectors.getUsersSelected);
+  const { isMatchingBreakpoint: isTablet } = useDetectMatchingBreakpoint(768);
+  const { isMatchingBreakpoint: isMobile } = useDetectMatchingBreakpoint(550);
+  const [tableSize, setTableSize] = useState("large");
+  const [scrollX, setScrollX] = useState({});
+
+  useEffect(() => {
+    if (isMobile) {
+      setScrollX({ x: 800 });
+      setTableSize("middle");
+    } else if (isTablet) {
+      setScrollX({ x: 1000 });
+      setTableSize("middle");
+    } else {
+      setScrollX({});
+      setTableSize("large");
+    }
+  }, [isTablet, isMobile]);
+
   const onSelectChange = (newSelectedRowKeys) => {
     dispatch(userActions.setSelectedUsers(newSelectedRowKeys));
   };
@@ -41,7 +60,7 @@ const UserTable = () => {
       title: "Password",
       dataIndex: "password",
       key: "password",
-      width: 300,
+      align: "center",
       render: (password) => <PasswordCol password={password} />,
     },
     {
@@ -83,7 +102,8 @@ const UserTable = () => {
 
   return (
     <Table
-      scroll={{ x: 1500 }}
+      size={tableSize}
+      scroll={scrollX}
       onRow={(record, rowIndex) => {
         return {
           onClick: (event) => {

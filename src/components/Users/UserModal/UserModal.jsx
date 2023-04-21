@@ -67,7 +67,6 @@ const UserModal = () => {
 
   const { mutate: updateUser, isLoading: isUpdating } = useMutation(
     (data) => {
-      console.log(data);
       return axiosConfig.put(`/users/${data.id}.json`, data.user);
     },
     {

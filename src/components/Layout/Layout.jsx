@@ -25,7 +25,9 @@ const AppLayout = () => {
   }
 
   const onNavigate = (route) => {
-    console.log(route.key);
+    if(isTablet){
+      setCollapsed(true);
+    }
     navigate(route.key);
   };
 

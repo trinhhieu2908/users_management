@@ -33,32 +33,19 @@
 
 .form {
   .ant-input,
-  .ant-input-status-error:not(.ant-input-disabled):not(
-      .ant-input-borderless
-    ).ant-input,
-  .ant-input-status-error:not(.ant-input-disabled):not(
-      .ant-input-borderless
-    ).ant-input:hover,
-  .ant-select-status-error.ant-select:not(.ant-select-disabled):not(
-      .ant-select-customize-input
-    )
-    .ant-select-selector,
+  .ant-input-status-error:not(.ant-input-disabled):not(.ant-input-borderless).ant-input,
+  .ant-input-status-error:not(.ant-input-disabled):not(.ant-input-borderless).ant-input:hover,
+  .ant-select-status-error.ant-select:not(.ant-select-disabled):not(.ant-select-customize-input) .ant-select-selector,
   .ant-select:not(.ant-select-customize-input) .ant-select-selector,
-  .ant-input-number-status-error:not(.ant-input-number-disabled):not(
-      .ant-input-number-borderless
-    ).ant-input-number,
+  .ant-input-number-status-error:not(.ant-input-number-disabled):not(.ant-input-number-borderless).ant-input-number,
   .ant-input-number-status-error:not(.ant-input-number-disabled):not(
       .ant-input-number-borderless
     ).ant-input-number:hover,
   .ant-input-number,
-  .ant-input-number-affix-wrapper-status-error:not(
-      .ant-input-number-affix-wrapper-disabled
-    ):not(
+  .ant-input-number-affix-wrapper-status-error:not(.ant-input-number-affix-wrapper-disabled):not(
       .ant-input-number-affix-wrapper-borderless
     ).ant-input-number-affix-wrapper,
-  .ant-input-number-affix-wrapper-status-error:not(
-      .ant-input-number-affix-wrapper-disabled
-    ):not(
+  .ant-input-number-affix-wrapper-status-error:not(.ant-input-number-affix-wrapper-disabled):not(
       .ant-input-number-affix-wrapper-borderless
     ).ant-input-number-affix-wrapper:hover,
   .ant-input-number-affix-wrapper {
@@ -95,4 +82,17 @@
 
 .ant-spin {
   max-height: initial !important;
+}
+
+@include mobile {
+  .ant-picker-panels {
+    flex-direction: column;
+  }
+  .action-user-page {
+    flex-direction: column;
+    align-items: flex-end;
+    &__add {
+      margin-top: 10px;
+    }
+  }
 }

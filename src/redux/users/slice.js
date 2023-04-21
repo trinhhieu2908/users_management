@@ -29,11 +29,12 @@ export const usersSlice = createSlice({
       state.selectedUsers = payload;
     },
     filterUsersByDate: (state, { payload }) => {
-      const users = state.users;
+      const users = payload.users;
       const userAfterFilter = users.filter((item) => {
         const dateCreated = new Date(item.dateCreated);
         const startDate = new Date(payload.startDate);
         const endDate = new Date(payload.endDate);
+        endDate.setDate(endDate.getDate() + 1);
         return (
           dateCreated.getTime() >= startDate.getTime() &&
           dateCreated.getTime() <= endDate.getTime()

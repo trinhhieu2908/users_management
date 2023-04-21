@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import UserTable from "../../components/Users/UserTable/UserTable";
 import UserModal from "../../components/Users/UserModal/UserModal";
-import { Button, DatePicker, Skeleton, Space } from "antd";
+import { Button, DatePicker, Skeleton, Space, notification } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { actions as modalAction } from "../../redux/modal/slice";
@@ -37,7 +37,9 @@ const UserPage = () => {
     },
     {
       onError: () => {
-        console.log("error get users");
+        notification.error({
+          description: "Failed to get users",
+        });
       },
     }
   );
@@ -54,8 +56,13 @@ const UserPage = () => {
       refetch();
       dispatch(userAction.setUsers(usersList));
     } else {
+      refetch();
       dispatch(
-        userAction.filterUsersByDate({ startDate: startDate, endDate: endDate })
+        userAction.filterUsersByDate({
+          users: usersList,
+          startDate: startDate,
+          endDate: endDate,
+        })
       );
     }
   };
@@ -68,12 +75,12 @@ const UserPage = () => {
     <>
       <UserModal />
       <ConfirmDeleteUserModal />
-      <div className="d-flex justify-content-between mb-1">
+      <div className="d-flex justify-content-between mb-1 action-user-page">
         <Space direction="horizontal">
           <p>Date Created: </p>
           <RangePicker onChange={onFilterDateCreated} />
         </Space>
-        <div>
+        <div className="action-user-page__add">
           {usersSelectedData.length > 0 && (
             <Button
               danger

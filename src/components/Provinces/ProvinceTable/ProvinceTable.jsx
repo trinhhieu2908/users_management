@@ -1,9 +1,24 @@
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Space, Table } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { actions as modalActions } from "../../../redux/modal/slice";
+import useDetectMatchingBreakpoint from "../../../hooks/useDetectMatchingBreakpoint";
 
 const ProvinceTable = (props) => {
+  const [tableSize, setTableSize] = useState("large");
+  const [scrollX, setScrollX] = useState({});
+  const { isMatchingBreakpoint: isMobile } = useDetectMatchingBreakpoint(550);
+
+  useEffect(() => {
+    if (isMobile) {
+      setScrollX({ x: 800 });
+      setTableSize('middle')
+    } else {
+      setScrollX({});
+      setTableSize('large');
+    }
+  }, [isMobile]);
+
   const columns = [
     {
       title: "Stt",
@@ -21,6 +36,7 @@ const ProvinceTable = (props) => {
       title: "Mã",
       dataIndex: "code",
       key: "code",
+      width: 80,
     },
     {
       title: "Loại",
@@ -53,7 +69,8 @@ const ProvinceTable = (props) => {
 
   return (
     <Table
-      scroll={{ x: 1500 }}
+      size={tableSize}
+      scroll={scrollX}
       onRow={(record, rowIndex) => {
         return {
           onClick: (event) => {
